@@ -9,7 +9,7 @@ namespace baxter_bridge
 
 std::unique_ptr<ros::NodeHandle> Bridge::ros1_node{};
 rclcpp::Node::SharedPtr Bridge::ros2_node{};
-bool Bridge::on_baxter{false}, Bridge::is_static{false};
+bool Bridge::on_baxter{true}, Bridge::is_static{false};
 rclcpp::executors::SingleThreadedExecutor::SharedPtr Bridge::exec;
 robot_state_publisher::RobotStatePublisher::SharedPtr Bridge::rsp_node;
 
@@ -33,7 +33,8 @@ bool Bridge::init(int argc, char** argv)
     try
     {
       const std::string rosmaster{std::getenv("ROS_MASTER_URI")};
-      on_baxter = rosmaster.find("baxter.local") != rosmaster.npos;
+      std::cout << rosmaster << std::endl;
+      on_baxter = rosmaster.find("cornwall.local") != rosmaster.npos;
     }
     catch (...) {}
   }

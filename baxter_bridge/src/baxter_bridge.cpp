@@ -20,6 +20,20 @@ int main(int argc, char** argv)
     Factory::createBridge("/robot/range/right_hand_range/state");
     Factory::createBridge("/robot/sonar/head_sonar/state");
 
+    Factory::createBridge("/robot/end_effector/left_gripper/command");
+    Factory::createBridge("/robot/end_effector/left_gripper/properties");
+    Factory::createBridge("/robot/end_effector/left_gripper/rsdk/set_properties");
+    Factory::createBridge("/robot/end_effector/left_gripper/rsdk/set_state");
+    Factory::createBridge("/robot/end_effector/left_gripper/state");
+
+
+
+    Factory::createBridge("/robot/end_effector/right_gripper/command");
+    Factory::createBridge("/robot/end_effector/right_gripper/properties");
+    Factory::createBridge("/robot/end_effector/right_gripper/rsdk/set_properties");
+    Factory::createBridge("/robot/end_effector/right_gripper/rsdk/set_state");
+    Factory::createBridge("/robot/end_effector/right_gripper/state");
+
     if(Bridge::isStatic())
       Factory::createRemainingBridges();
     else

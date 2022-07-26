@@ -58,6 +58,8 @@
 #include <baxter_core_msgs/msg/robust_controller_status.hpp>
 #include <std_msgs/Int32.h>
 #include <std_msgs/msg/int32.hpp>
+#include <baxter_core_msgs/EndEffectorState.h>
+#include <baxter_core_msgs/msg/end_effector_state.hpp>
 
 namespace baxter_bridge
 {
@@ -365,6 +367,26 @@ void convertMsg(const baxter_core_msgs::EndpointState &src, baxter_core_msgs::ms
 }
 
 template<>
+void convertMsg(const baxter_core_msgs::EndEffectorState &src, baxter_core_msgs::msg::EndEffectorState &dst)
+{
+  convertMsg(src.id, dst.id);
+  convertMsg(src.enabled, dst.enabled);
+  convertMsg(src.calibrated, dst.calibrated);
+  convertMsg(src.ready, dst.ready);
+  convertMsg(src.moving, dst.moving);
+  convertMsg(src.gripping, dst.gripping);
+  convertMsg(src.missed, dst.missed);
+  convertMsg(src.error, dst.error);
+  convertMsg(src.reverse, dst.reverse);
+  convertMsg(src.position, dst.position);
+  convertMsg(src.force, dst.force);
+  convertMsg(src.state, dst.state);
+  convertMsg(src.command, dst.command);
+  convertMsg(src.command_sender, dst.command_sender);
+  convertMsg(src.command_sequence, dst.command_sequence);
+}
+
+template<>
 void convertMsg(const baxter_core_msgs::SEAJointState &src, baxter_core_msgs::msg::SEAJointState &dst)
 {
   convertMsg(src.header, dst.header);
@@ -470,10 +492,10 @@ std::map<std::string, std::string> Factory::topics_1to2 = {
   {"/robot/analog_io_states", "baxter_core_msgs/AnalogIOStates"},
   {"/robot/digital_io/command", "baxter_core_msgs/DigitalOutputCommand"},
   {"/robot/digital_io_states", "baxter_core_msgs/DigitalIOStates"},
-  {"/robot/end_effector/left_gripper/command", "baxter_core_msgs/EndEffectorCommand"},
   {"/robot/end_effector/left_gripper/properties", "baxter_core_msgs/EndEffectorProperties"},
-  {"/robot/end_effector/right_gripper/command", "baxter_core_msgs/EndEffectorCommand"},
   {"/robot/end_effector/right_gripper/properties", "baxter_core_msgs/EndEffectorProperties"},
+  {"/robot/end_effector/left_gripper/state", "baxter_core_msgs/EndEffectorState"},
+  {"/robot/end_effector/right_gripper/state", "baxter_core_msgs/EndEffectorState"},
   {"/robot/head/command_head_nod", "std_msgs/Bool"},
   {"/robot/head/command_head_pan", "baxter_core_msgs/HeadPanCommand"},
   {"/robot/head/head_state", "baxter_core_msgs/HeadState"},
@@ -520,6 +542,11 @@ void Factory::createBridge_1to2(const std::string &topic, const std::string &msg
   if(msg == "sensor_msgs/Range")
   {
     bridges.push_back(std::make_unique<Bridge_1to2<sensor_msgs::Range, sensor_msgs::msg::Range>>
+        (topic));
+  }
+  if(msg == "baxter_core_msgs/EndEffectorState")
+  {
+    bridges.push_back(std::make_unique<Bridge_1to2<baxter_core_msgs::EndEffectorState, baxter_core_msgs::msg::EndEffectorState>>
         (topic));
   }
   else if(msg == "sensor_msgs/PointCloud")
