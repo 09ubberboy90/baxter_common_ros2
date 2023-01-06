@@ -74,23 +74,21 @@ namespace baxter_bridge
   {
     // get Baxter's description from ROS 1 param
     const auto description{ros1_node->param<std::string>("robot_description", "")};
-
     if(description.empty())
     {
       RCLCPP_ERROR(ros2()->get_logger(), "Cannot find param /robot_description: run a simulation or connect to Baxter");
       return false;
     }
+    // urdf::Model model;
+    // model.initString(description);
 
-    urdf::Model model;
-    model.initString(description);
-
-    if(model.getName() == "baxter")
-      RCLCPP_INFO(ros2()->get_logger(), "Using Baxter's robot description");
-    else
-    {
-      const std::string msg{"Using description of robot '" + model.getName() + "'"};
-      RCLCPP_WARN(ros2()->get_logger(), "%s", msg.c_str());
-    }
+    // if(model.getName() == "baxter")
+    RCLCPP_INFO(ros2()->get_logger(), "Using Baxter's robot description");
+    // else
+    // {
+    //   const std::string msg{"Using description of robot '" + model.getName() + "'"};
+    //   RCLCPP_WARN(ros2()->get_logger(), "%s", msg.c_str());
+    // }
 
     // instanciate local robot_state_publisher
     auto rsp_arg{rclcpp::NodeOptions()
