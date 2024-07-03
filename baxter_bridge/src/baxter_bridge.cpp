@@ -18,7 +18,7 @@ int main(int argc, char** argv)
     // makes it easier to spawn in RViz2 if they are advertized in ROS 2
     Factory::createBridge("/robot/range/left_hand_range/state");
     Factory::createBridge("/robot/range/right_hand_range/state");
-    Factory::createBridge("/robot/sonar/head_sonar/state");
+    // Factory::createBridge("/robot/sonar/head_sonar/state");
 
     Factory::createBridge("/robot/end_effector/left_gripper/command");
     Factory::createBridge("/robot/end_effector/left_gripper/properties");
@@ -26,7 +26,9 @@ int main(int argc, char** argv)
     Factory::createBridge("/robot/end_effector/left_gripper/rsdk/set_state");
     Factory::createBridge("/robot/end_effector/left_gripper/state");
 
-
+    Factory::createBridge("/robot/xdisplay");
+    Factory::createBridge("/robot/head/command_head_nod");
+    Factory::createBridge("/robot/head/command_head_pan");
 
     Factory::createBridge("/robot/end_effector/right_gripper/command");
     Factory::createBridge("/robot/end_effector/right_gripper/properties");

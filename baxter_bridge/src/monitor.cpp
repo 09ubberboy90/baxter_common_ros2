@@ -11,12 +11,12 @@ Monitor::Monitor(std::string name, bool display) : name{name}, display{display}
 {
   client = nh.serviceClient<baxter_bridge::BaxterPublishers>("/monitor", true);
 
-  im_timer = nh.createTimer(ros::Duration(timeout_s/2),
-                            [&](const ros::TimerEvent&)
-  {
-    if(im_pub.get())
-      publishXDisplay();
-  });
+  // im_timer = nh.createTimer(ros::Duration(timeout_s/2),
+  //                           [&](const ros::TimerEvent&)
+  // {
+  //   // if(im_pub.get())
+  //   //   publishXDisplay();
+  // });
 }
 
 // local call to the monitor
